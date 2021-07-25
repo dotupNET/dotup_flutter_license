@@ -63,12 +63,12 @@ class _LicenseExampleScaffoldState extends State<LicenseExampleScaffold> {
             WithLicense.banner(
               currentLicense: controller.currentLicense,
               requiredLicense: LicenseType.Pro,
-              content: ListTile(title: Text('PRO FEATURE')),
+              child: ListTile(title: Text('PRO FEATURE')),
             ),
             WithLicense(
               currentLicense: controller.currentLicense,
               requiredLicense: LicenseType.Enterprise,
-              widget: Text('ENTERPRISE FEATURE'),
+              child: Text('ENTERPRISE FEATURE'),
             ),
             ListTile(
               title: Text('License'),

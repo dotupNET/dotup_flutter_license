@@ -7,7 +7,7 @@ import 'IndexedExtensions.dart';
 class WithLicense<T> extends StatelessWidget {
   final T currentLicense;
   final T requiredLicense;
-  final Widget widget;
+  final Widget child;
   final bool withBanner;
   final ValueSetter<T>? onBannerTap;
 
@@ -15,7 +15,7 @@ class WithLicense<T> extends StatelessWidget {
     Key? key,
     required this.currentLicense,
     required this.requiredLicense,
-    required this.widget,
+    required this.child,
     this.withBanner = false,
     this.onBannerTap,
   }) : super(key: key);
@@ -23,13 +23,13 @@ class WithLicense<T> extends StatelessWidget {
   factory WithLicense.banner({
     required T currentLicense,
     required T requiredLicense,
-    required Widget content,
+    required Widget child,
     ValueSetter<T>? onBannerTap,
   }) {
     return WithLicense(
       currentLicense: currentLicense,
       requiredLicense: requiredLicense,
-      widget: content,
+      child: child,
       onBannerTap: onBannerTap,
       withBanner: true,
     );
@@ -41,13 +41,13 @@ class WithLicense<T> extends StatelessWidget {
     final licenseIndex = currentLicense.index;
 
     if (requiredIndex <= licenseIndex) {
-      return widget;
+      return child;
     } else if (withBanner == true) {
       if (onBannerTap == null) {
         return ClipRect(
           child: AbsorbPointer(
             child: Stack(children: [
-              widget,
+              child,
               Banner(
                 message: describeEnum(requiredLicense as dynamic),
                 location: BannerLocation.topStart,
@@ -61,7 +61,7 @@ class WithLicense<T> extends StatelessWidget {
             onTap: () => onBannerTap!(requiredLicense),
             child: AbsorbPointer(
               child: Stack(children: [
-                widget,
+                child,
                 Banner(
                   message: describeEnum(requiredLicense as dynamic),
                   location: BannerLocation.topStart,

@@ -80,6 +80,7 @@ class _LicenseExampleScaffoldState extends State<LicenseExampleScaffold> {
             ),
             Licensed(
               licenseService: controller,
+              onBannerTap: (license) => print('Banner tap $license'),
               // licenseService: MyLicenseService(licenseType),
               widgets: [
                 OutlinedButton(

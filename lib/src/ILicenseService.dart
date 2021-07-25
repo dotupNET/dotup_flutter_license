@@ -1,4 +1,4 @@
 
-abstract class ILicenseService<T> {
-  T getLicense();
-}
+// abstract class ILicenseService<T> {
+//   T getLicense();
+// }

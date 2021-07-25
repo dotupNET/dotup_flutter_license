@@ -8,11 +8,13 @@ import 'IndexedExtensions.dart';
 class Licensed<T> extends StatelessWidget {
   late final List<Widget> widgets;
   final LicenseController<T> licenseService;
+  final ValueSetter<T>? onBannerTap;
 
   Licensed({
     Key? key,
     required this.licenseService,
     required this.widgets,
+    this.onBannerTap,
   }) : super(key: key);
 
   @override
@@ -24,22 +26,42 @@ class Licensed<T> extends StatelessWidget {
     for (var item in widgets) {
       if (item is LicensedWidget<T>) {
         final itemLicense = item.requiredLicense?.index ?? 9999;
+
         if (itemLicense <= currentLicense) {
           childs.add(item.widget);
         } else if (item.withBanner == true) {
-          childs.add(
-            ClipRect(
-              child: AbsorbPointer(
-                child: Stack(children: [
-                  item.widget,
-                  Banner(
-                    message: describeEnum(item.requiredLicense as dynamic),
-                    location: BannerLocation.topStart,
-                  ),
-                ]),
+          if (onBannerTap == null) {
+            childs.add(
+              ClipRect(
+                child: AbsorbPointer(
+                  child: Stack(children: [
+                    item.widget,
+                    Banner(
+                      message: describeEnum(item.requiredLicense as dynamic),
+                      location: BannerLocation.topStart,
+                    ),
+                  ]),
+                ),
               ),
-            ),
-          );
+            );
+          } else {
+            childs.add(
+              ClipRect(
+                child: InkWell(
+                  onTap: () => onBannerTap!(item.requiredLicense),
+                  child: AbsorbPointer(
+                    child: Stack(children: [
+                      item.widget,
+                      Banner(
+                        message: describeEnum(item.requiredLicense as dynamic),
+                        location: BannerLocation.topStart,
+                      ),
+                    ]),
+                  ),
+                ),
+              ),
+            );
+          }
         }
       } else {
         childs.add(item);

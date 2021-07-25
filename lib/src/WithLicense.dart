@@ -9,6 +9,7 @@ class WithLicense<T> extends StatelessWidget {
   final T requiredLicense;
   final Widget widget;
   final bool withBanner;
+  final ValueSetter<T>? onBannerTap;
 
   const WithLicense({
     Key? key,
@@ -16,7 +17,23 @@ class WithLicense<T> extends StatelessWidget {
     required this.requiredLicense,
     required this.widget,
     this.withBanner = false,
+    this.onBannerTap,
   }) : super(key: key);
+
+  factory WithLicense.banner({
+    required T currentLicense,
+    required T requiredLicense,
+    required Widget content,
+    ValueSetter<T>? onBannerTap,
+  }) {
+    return WithLicense(
+      currentLicense: currentLicense,
+      requiredLicense: requiredLicense,
+      widget: content,
+      onBannerTap: onBannerTap,
+      withBanner: true,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,17 +43,34 @@ class WithLicense<T> extends StatelessWidget {
     if (requiredIndex <= licenseIndex) {
       return widget;
     } else if (withBanner == true) {
-      return ClipRect(
-        child: AbsorbPointer(
-          child: Stack(children: [
-            widget,
-            Banner(
-              message: describeEnum(requiredLicense as dynamic),
-              location: BannerLocation.topStart,
+      if (onBannerTap == null) {
+        return ClipRect(
+          child: AbsorbPointer(
+            child: Stack(children: [
+              widget,
+              Banner(
+                message: describeEnum(requiredLicense as dynamic),
+                location: BannerLocation.topStart,
+              ),
+            ]),
+          ),
+        );
+      } else {
+        return ClipRect(
+          child: InkWell(
+            onTap: () => onBannerTap!(requiredLicense),
+            child: AbsorbPointer(
+              child: Stack(children: [
+                widget,
+                Banner(
+                  message: describeEnum(requiredLicense as dynamic),
+                  location: BannerLocation.topStart,
+                ),
+              ]),
             ),
-          ]),
-        ),
-      );
+          ),
+        );
+      }
     } else {
       return SizedBox.shrink();
     }

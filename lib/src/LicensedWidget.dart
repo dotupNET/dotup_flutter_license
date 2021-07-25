@@ -3,19 +3,19 @@ import 'package:flutter/material.dart';
 
 class LicensedWidget<T> extends StatelessWidget {
   final T requiredLicense;
-  final Widget widget;
+  final Widget child;
   final bool withBanner;
   const LicensedWidget({
     Key? key,
     required this.requiredLicense,
-    required this.widget,
+    required this.child,
     this.withBanner = false,
   }) : super(key: key);
 
-  factory LicensedWidget.banner({required T license, required Widget content}) {
+  factory LicensedWidget.banner({required T requiredLicense, required Widget child}) {
     return LicensedWidget(
-      requiredLicense: license,
-      widget: content,
+      requiredLicense: requiredLicense,
+      child: child,
       withBanner: true,
     );
   }
@@ -30,7 +30,7 @@ class LicensedWidget<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return widget;
+    return child;
   }
 }
 

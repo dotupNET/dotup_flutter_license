@@ -32,14 +32,14 @@ class Licensed<T> extends StatelessWidget {
         final itemLicense = item.requiredLicense?.index ?? 9999;
 
         if (itemLicense <= currentLicense) {
-          childs.add(item.widget);
+          childs.add(item.child);
         } else if (item.withBanner == true) {
           if (onBannerTap == null) {
             childs.add(
               ClipRect(
                 child: AbsorbPointer(
                   child: Stack(children: [
-                    item.widget,
+                    item.child,
                     Banner(
                       message: describeEnum(item.requiredLicense as dynamic),
                       location: BannerLocation.topStart,
@@ -55,7 +55,7 @@ class Licensed<T> extends StatelessWidget {
                   onTap: () => onBannerTap!(item.requiredLicense),
                   child: AbsorbPointer(
                     child: Stack(children: [
-                      item.widget,
+                      item.child,
                       Banner(
                         message: describeEnum(item.requiredLicense as dynamic),
                         location: BannerLocation.topStart,

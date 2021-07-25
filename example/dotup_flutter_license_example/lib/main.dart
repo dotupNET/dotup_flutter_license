@@ -102,23 +102,23 @@ class _LicenseExampleScaffoldState extends State<LicenseExampleScaffold> {
                 SizedBox(height: 10),
                 LicensedWidget(
                   requiredLicense: LicenseType.Pro,
-                  widget: OutlinedButton(
+                  child: OutlinedButton(
                     child: Text("I'm visible with pro"),
                     onPressed: () {},
                   ),
                 ),
                 SizedBox(height: 10),
-                LicensedWidget.banner(license: LicenseType.Free, content: NoLicenseWidget()),
+                LicensedWidget.banner(requiredLicense: LicenseType.Free, child: NoLicenseWidget()),
                 SizedBox(height: 10),
-                LicensedWidget.banner(license: LicenseType.Basic, content: BasicWidget()),
+                LicensedWidget.banner(requiredLicense: LicenseType.Basic, child: BasicWidget()),
                 SizedBox(height: 10),
-                LicensedWidget.banner(license: LicenseType.Pro, content: ProWidget()),
+                LicensedWidget.banner(requiredLicense: LicenseType.Pro, child: ProWidget()),
                 SizedBox(height: 10),
-                LicensedWidget.banner(license: LicenseType.Enterprise, content: EnterpriseWidget()),
+                LicensedWidget.banner(requiredLicense: LicenseType.Enterprise, child: EnterpriseWidget()),
                 SizedBox(height: 10),
                 LicensedWidget.banner(
-                  license: LicenseType.Enterprise,
-                  content: ListTile(
+                  requiredLicense: LicenseType.Enterprise,
+                  child: ListTile(
                     leading: Icon(Icons.alarm),
                     title: Text('Only for enterprise'),
                   ),

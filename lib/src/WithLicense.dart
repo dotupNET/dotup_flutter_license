@@ -10,21 +10,26 @@ class WithLicense<T> extends StatelessWidget {
   final Widget child;
   final bool withBanner;
   final ValueSetter<T>? onBannerTap;
+  late final Color _bannerColor;
 
-  const WithLicense({
+  WithLicense({
     Key? key,
     required this.currentLicense,
     required this.requiredLicense,
     required this.child,
     this.withBanner = false,
     this.onBannerTap,
-  }) : super(key: key);
+    Color? bannerColor,
+  }) : super(key: key) {
+    _bannerColor = bannerColor ?? Colors.red;
+  }
 
   factory WithLicense.banner({
     required T currentLicense,
     required T requiredLicense,
     required Widget child,
     ValueSetter<T>? onBannerTap,
+    Color? bannerColor,
   }) {
     return WithLicense(
       currentLicense: currentLicense,
@@ -32,6 +37,7 @@ class WithLicense<T> extends StatelessWidget {
       child: child,
       onBannerTap: onBannerTap,
       withBanner: true,
+      bannerColor: bannerColor,
     );
   }
 
@@ -51,6 +57,7 @@ class WithLicense<T> extends StatelessWidget {
               Banner(
                 message: describeEnum(requiredLicense as dynamic),
                 location: BannerLocation.topStart,
+                color: _bannerColor,
               ),
             ]),
           ),

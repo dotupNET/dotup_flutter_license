@@ -9,13 +9,17 @@ class Licensed<T> extends StatelessWidget {
   late final List<Widget> widgets;
   final LicenseController<T> licenseService;
   final ValueSetter<T>? onBannerTap;
+  late final Color _bannerColor;
 
   Licensed({
     Key? key,
     required this.licenseService,
     required this.widgets,
     this.onBannerTap,
-  }) : super(key: key);
+    Color? bannerColor,
+  }) : super(key: key) {
+    _bannerColor = bannerColor ?? Colors.red;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,6 +59,7 @@ class Licensed<T> extends StatelessWidget {
                       Banner(
                         message: describeEnum(item.requiredLicense as dynamic),
                         location: BannerLocation.topStart,
+                        color: _bannerColor,
                       ),
                     ]),
                   ),

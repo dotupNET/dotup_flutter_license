@@ -38,6 +38,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "dotup_flutter_extensions",
+      "rootUri": "../../dotup_flutter_extensions",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "fake_async",
       "rootUri": "file:///Users/peterullrich/data/flutter/.pub-cache/hosted/pub.dartlang.org/fake_async-1.2.0",
       "packageUri": "lib/",
@@ -134,7 +140,7 @@
       "languageVersion": "2.12"
     }
   ],
-  "generated": "2021-07-25T08:48:11.237073Z",
+  "generated": "2021-07-26T09:37:56.824758Z",
   "generator": "pub",
   "generatorVersion": "2.13.4"
 }

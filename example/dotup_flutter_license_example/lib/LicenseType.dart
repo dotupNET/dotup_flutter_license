@@ -7,7 +7,3 @@ enum LicenseType {
   Pro,
   Enterprise,
 }
-
-extension LicenseTypeExtension on LicenseType {
-  String get name => describeEnum(this);
-}

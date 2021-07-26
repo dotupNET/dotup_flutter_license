@@ -27,6 +27,8 @@ dependencies:
   #   path: ../../../dotup_flutter_extensions
   dotup_flutter_license:
     path: ../../
+  dotup_flutter_extensions:
+    path: ../../../dotup_flutter_extensions
 
 
   # The following adds the Cupertino Icons font to your application.

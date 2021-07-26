@@ -1,19 +1,19 @@
-import 'package:dotup_flutter_license/src/LicenseController.dart';
+import 'package:dotup_flutter_license/dotup_flutter_license.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'LicensedWidget.dart';
 
-import 'IndexedExtensions.dart';
+import 'ILicensedWidget.dart';
 
 class Licensed<T> extends StatelessWidget {
   late final List<Widget> widgets;
-  final LicenseController<T> licenseService;
+  late final LicenseController controller;
+  // final LicenseValidator licenseService;
   final ValueSetter<T>? onBannerTap;
   late final Color _bannerColor;
 
   Licensed({
     Key? key,
-    required this.licenseService,
+    required this.controller,
     required this.widgets,
     this.onBannerTap,
     Color? bannerColor,
@@ -25,53 +25,69 @@ class Licensed<T> extends StatelessWidget {
   Widget build(BuildContext context) {
     List<Widget> childs = [];
 
-    final currentLicense = licenseService.getLicenseIndex();
-
-    for (var item in widgets) {
-      if (item is LicensedWidget<T>) {
-        final itemLicense = item.requiredLicense?.index ?? 9999;
-
-        if (itemLicense <= currentLicense) {
-          childs.add(item.child);
-        } else if (item.withBanner == true) {
-          if (onBannerTap == null) {
-            childs.add(
-              ClipRect(
-                child: AbsorbPointer(
-                  child: Stack(children: [
-                    item.child,
-                    Banner(
-                      message: describeEnum(item.requiredLicense as dynamic),
-                      location: BannerLocation.topStart,
-                    ),
-                  ]),
-                ),
-              ),
-            );
-          } else {
-            childs.add(
-              ClipRect(
-                child: InkWell(
-                  onTap: () => onBannerTap!(item.requiredLicense),
-                  child: AbsorbPointer(
-                    child: Stack(children: [
-                      item.child,
-                      Banner(
-                        message: describeEnum(item.requiredLicense as dynamic),
-                        location: BannerLocation.topStart,
-                        color: _bannerColor,
-                      ),
-                    ]),
-                  ),
-                ),
-              ),
-            );
-          }
-        }
-      } else {
-        childs.add(item);
+    for (var widget in widgets) {
+      if (widget is LateLicense) {
+        (widget as LateLicense).initialize(controller.isLicensed(widget));
+      
+      }
+      if (widget is ILicensedWidget) {
+        final item = widget as ILicensedWidget;
+        final isLicensed = controller.isLicensed(item);
+        final w = WithLicense(
+          license: item.getLicense(),
+          isLicensed: isLicensed,
+          child: item.child,
+          withBanner: item.withBanner,
+          
+        );
+        childs.add(w);
       }
     }
+
+    // for (var widget in widgets) {
+    //   if (widget is ILicensedWidget) {
+    //     final item = widget as ILicensedWidget;
+    //     if (LicenseController.instance.isLicensed(item)) {
+    //       childs.add(item.child);
+    //     } else if (item.withBanner == true) {
+    //       if (onBannerTap == null) {
+    //         childs.add(
+    //           ClipRect(
+    //             child: AbsorbPointer(
+    //               child: Stack(children: [
+    //                 item.child,
+    //                 Banner(
+    //                   message: describeEnum(item.getLicense() as dynamic),
+    //                   location: BannerLocation.topStart,
+    //                 ),
+    //               ]),
+    //             ),
+    //           ),
+    //         );
+    //       } else {
+    //         childs.add(
+    //           ClipRect(
+    //             child: InkWell(
+    //               onTap: () => onBannerTap!(item.getModel()),
+    //               child: AbsorbPointer(
+    //                 child: Stack(children: [
+    //                   item.child,
+    //                   Banner(
+    //                     message: describeEnum(item.getLicense() as dynamic),
+    //                     location: BannerLocation.topStart,
+    //                     color: _bannerColor,
+    //                   ),
+    //                 ]),
+    //               ),
+    //             ),
+    //           ),
+    //         );
+    //       }
+    //     }
+    //   } else {
+    //     childs.add(widget);
+    //   }
+    // }
 
     // final widget = widgets.where((element) => element.license == licenseService.getLicense());
 
@@ -84,7 +100,7 @@ class Licensed<T> extends StatelessWidget {
     //   );
     // }
     if (childs.isEmpty) {
-      return Text('License "${licenseService.getLicense()}" not found.');
+      return Text('License "${LicenseController.instance.getCurrentLicense()}" not found.');
     } else {
       return Column(
         children: childs,

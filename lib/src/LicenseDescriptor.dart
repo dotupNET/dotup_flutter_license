@@ -5,5 +5,4 @@ class LicenseDescriptor<T> {
   final int index;
   final String label;
   LicenseDescriptor({required this.key, required this.index, required this.label});
-  // LicenseDescriptor({required this.key, required this.index, required this.label});
 }

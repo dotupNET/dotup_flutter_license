@@ -86,42 +86,42 @@ class _LicenseExampleScaffoldState extends State<LicenseExampleScaffold> {
                   ],
                 ),
               ),
-              OnlyLicensed.banner(
+              WithLicense.banner(
                 license: AppLicense.None,
                 child: NoLicenseWidget(),
               ),
               SizedBox(height: 10),
-              OnlyLicensed.banner(
+              WithLicense.banner(
                 license: AppLicense.Free,
                 child: FreeWidget(),
               ),
               SizedBox(height: 10),
-              OnlyLicensed.banner(
+              WithLicense.banner(
                 license: AppLicense.Basic,
                 child: BasicWidget(),
               ),
               SizedBox(height: 10),
-              OnlyLicensed.banner(
+              WithLicense.banner(
                 license: AppLicense.Pro,
                 child: ProWidget(),
               ),
               SizedBox(height: 10),
-              OnlyLicensed.banner(
+              WithLicense.banner(
                 license: AppLicense.Enterprise,
                 child: EnterpriseWidget(),
               ),
               SizedBox(height: 10),
               Text('With features'),
               SizedBox(height: 10),
-              OnlyFeature.banner(feature: CustomerFeatureKey.None, child: NoLicenseWidget()),
+              WithFeature.banner(feature: CustomerFeatureKey.None, child: NoLicenseWidget()),
               SizedBox(height: 10),
-              OnlyFeature.banner(feature: CustomerFeatureKey.Free, child: FreeWidget()),
+              WithFeature.banner(feature: CustomerFeatureKey.Free, child: FreeWidget()),
               SizedBox(height: 10),
-              OnlyFeature.banner(feature: CustomerFeatureKey.Basic, child: BasicWidget()),
+              WithFeature.banner(feature: CustomerFeatureKey.Basic, child: BasicWidget()),
               SizedBox(height: 10),
-              OnlyFeature.banner(feature: CustomerFeatureKey.Pro, child: ProWidget()),
+              WithFeature.banner(feature: CustomerFeatureKey.Pro, child: ProWidget()),
               SizedBox(height: 10),
-              OnlyFeature.banner(feature: CustomerFeatureKey.Enterprise, child: EnterpriseWidget()),
+              WithFeature.banner(feature: CustomerFeatureKey.Enterprise, child: EnterpriseWidget()),
               SizedBox(height: 10),
             ],
           ),

@@ -1,6 +1,9 @@
 # dotup_flutter_license
 
-A new Flutter package project.
+Small package to decorate Widgets with an License Banner.
+
+[dotup.de](https://dotup.de)
+
 
 ## Getting Started
 

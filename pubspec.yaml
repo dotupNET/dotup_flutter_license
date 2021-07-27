@@ -1,18 +1,15 @@
 name: dotup_flutter_license
-description: A new Flutter package project.
+description: Small package to decorate Widgets with an License Banner.
 version: 0.0.1
-homepage:
-publish_to: none
+homepage: https://dotup.de
 
 environment:
-  sdk: ">=2.13.0 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
   flutter: ">=1.17.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  dotup_flutter_extensions:
-    path: ../dotup_flutter_extensions
 
 dev_dependencies:
   flutter_test:

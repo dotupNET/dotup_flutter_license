@@ -1,4 +1,4 @@
-typedef LicenseList = List<LicenseDescriptor>;
+// typedef LicenseList = List<LicenseDescriptor>;
 
 class LicenseDescriptor<T> {
   final T key;

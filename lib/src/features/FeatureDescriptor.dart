@@ -1,5 +1,5 @@
 import 'package:dotup_flutter_license/dotup_flutter_license.dart';
-import 'package:dotup_flutter_extensions/dotup_flutter_extensions.dart';
+import '../IterableExtensions.dart';
 
 class FeatureDescriptor<TFeature> {
   final TFeature key;

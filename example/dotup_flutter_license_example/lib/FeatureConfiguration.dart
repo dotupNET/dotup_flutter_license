@@ -2,6 +2,7 @@ import 'package:dotup_flutter_license/dotup_flutter_license.dart';
 import 'package:dotup_flutter_license_example/LicenseType.dart';
 
 enum CustomerFeatureKey {
+  None,
   Module,
   DashboardPage,
   ListPage,
@@ -34,54 +35,57 @@ enum CustomerFeatureKey {
 }
 
 class FeatureConfiguration {
-  late final FeatureDescriptor<LicenseType, CustomerFeatureKey> customerFeatures;
+  late final FeatureDescriptor<CustomerFeatureKey> customerFeatures;
+
+  FeatureDescriptor< CustomerFeatureKey> getDescriptor(CustomerFeatureKey key) =>
+      customerFeatures.findFeature(key);
 
   FeatureConfiguration() {
-    customerFeatures = FeatureDescriptor<LicenseType, CustomerFeatureKey>(
+    customerFeatures = FeatureDescriptor< CustomerFeatureKey>(
       key: CustomerFeatureKey.Module,
-      license: LicenseType.None,
+      license: AppLicense.None,
       name: 'Kunden',
       description: 'Stammdaten Kunden',
       features: [
         FeatureDescriptor(
           key: CustomerFeatureKey.DashboardPage,
-          license: LicenseType.Pro,
+          license: AppLicense.Pro,
           name: 'Übersicht',
           description: '?',
         ),
         FeatureDescriptor(
           key: CustomerFeatureKey.ListPage,
-          license: LicenseType.Basic,
+          license: AppLicense.Basic,
           name: 'Kundenliste',
           description: '?',
           features: [
             FeatureDescriptor(
               key: CustomerFeatureKey.ListPage_QuickBar,
-              license: LicenseType.Basic,
+              license: AppLicense.Basic,
               name: 'QuickBar',
               description: 'Schnellzugriff auf diverse Funktionalitäten',
               features: [
                 FeatureDescriptor(
                   key: CustomerFeatureKey.ListPage_QuickBar_Search,
-                  license: LicenseType.Basic,
+                  license: AppLicense.Basic,
                   name: 'Suche',
                   description: 'Suchfeld in QuickBar ein- und ausblenden',
                 ),
                 FeatureDescriptor(
                   key: CustomerFeatureKey.ListPage_QuickBar_Add,
-                  license: LicenseType.Basic,
+                  license: AppLicense.Basic,
                   name: 'Schnelles hinzufügen',
                   description: 'Suchfeld in QuickBar ein- und ausblenden',
                 ),
                 FeatureDescriptor(
                   key: CustomerFeatureKey.ListPage_QuickBar_Filter,
-                  license: LicenseType.Basic,
+                  license: AppLicense.Basic,
                   name: 'Quickfilter',
                   description: 'KOnfiguration des Quickfilter',
                 ),
                 FeatureDescriptor(
                   key: CustomerFeatureKey.ListPage_Filter,
-                  license: LicenseType.Basic,
+                  license: AppLicense.Basic,
                   name: 'Filter',
                   description: 'Filter im Listenheader',
                 ),
@@ -91,13 +95,13 @@ class FeatureConfiguration {
         ),
         FeatureDescriptor(
           key: CustomerFeatureKey.Settings,
-          license: LicenseType.Basic,
+          license: AppLicense.Basic,
           name: 'Einstellungen',
           description: '?',
           features: [
             FeatureDescriptor(
               key: CustomerFeatureKey.Settings_StartPage,
-              license: LicenseType.Basic,
+              license: AppLicense.Basic,
               name: 'Startseite',
               description: 'Konfiguration der Startseite',
             ),
@@ -105,37 +109,37 @@ class FeatureConfiguration {
         ),
         FeatureDescriptor(
           key: CustomerFeatureKey.Integration,
-          license: LicenseType.Pro,
+          license: AppLicense.Pro,
           name: 'Integration',
           description: 'Synchronisation externer Systeme',
           features: [
             FeatureDescriptor(
               key: CustomerFeatureKey.Integration_Azure,
-              license: LicenseType.Basic,
+              license: AppLicense.Basic,
               name: 'Azure',
               description: 'Anbindung an Azure DevOps',
             ),
             FeatureDescriptor(
               key: CustomerFeatureKey.Integration_Dolibarr,
-              license: LicenseType.Basic,
+              license: AppLicense.Basic,
               name: 'Dolibarr',
               description: 'Anbindung an Dolibarr',
             ),
             FeatureDescriptor(
               key: CustomerFeatureKey.Integration_Export,
-              license: LicenseType.Basic,
+              license: AppLicense.Basic,
               name: 'Import/Export',
               description: 'Import und Export im CSV Format',
             ),
             FeatureDescriptor(
               key: CustomerFeatureKey.Integration_Github,
-              license: LicenseType.Basic,
+              license: AppLicense.Basic,
               name: 'Github',
               description: 'Anbindung an Github',
             ),
             FeatureDescriptor(
               key: CustomerFeatureKey.Integration_Zeitick,
-              license: LicenseType.Basic,
+              license: AppLicense.Basic,
               name: 'zeiTick',
               description: 'Anbindung an zeiTick',
             ),

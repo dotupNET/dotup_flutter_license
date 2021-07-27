@@ -1,26 +1,26 @@
 import 'package:dotup_flutter_license/dotup_flutter_license.dart';
 import 'package:dotup_flutter_extensions/dotup_flutter_extensions.dart';
 
-class FeatureDescriptor<TLicense, TFeature> {
+class FeatureDescriptor< TFeature> {
   final TFeature key;
-  final TLicense license;
+  final LicenseDescriptor license;
   final String name;
   final String description;
-  late final List<FeatureDescriptor<TLicense, TFeature>> features;
+  late final List<FeatureDescriptor< TFeature>> features;
 
   FeatureDescriptor({
     required this.key,
     required this.license,
     required this.name,
     required this.description,
-    List<FeatureDescriptor<TLicense, TFeature>>? features,
+    List<FeatureDescriptor< TFeature>>? features,
   }) {
     this.features = features ?? [];
   }
 
-  FeatureDescriptor<TLicense, TFeature> findFeature(TFeature key) {
-    FeatureDescriptor<TLicense, TFeature>? find(
-        TFeature key, List<FeatureDescriptor<TLicense, TFeature>> featuresList) {
+  FeatureDescriptor< TFeature> findFeature(TFeature key) {
+    FeatureDescriptor< TFeature>? find(
+        TFeature key, List<FeatureDescriptor< TFeature>> featuresList) {
       var result = featuresList.firstWhereOrNull((element) => element.key == key);
 
       if (result == null) {

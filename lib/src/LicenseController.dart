@@ -1,59 +1,74 @@
 import 'package:dotup_flutter_license/dotup_flutter_license.dart';
 import 'package:flutter/material.dart';
 
-extension _IndexedExtension on dynamic {
-  int get index => this.index;
-}
+import 'LicenseDescriptor.dart';
 
+// abstract class LicenseValidator<T> {
+//   bool isLicensed(LicenseDescriptor<T> item);
+//   LicenseDescriptor<T> getCurrentLicense();
+// }
 
-abstract class LicenseValidator<T> {
-  bool isLicensed(T item);
-  T getCurrentLicense();
-}
+abstract class LicenseController<TLicense, TFeature> {
+  // implements LicenseValidator<TLicense> {
+  static late final LicenseController instance;
 
-class LicenseController<TLicense, TFeature> implements LicenseValidator<TLicense> {
-  static late final LicenseController instance = LicenseController._();
+  late LicenseDescriptor currentLicense;
+  late final FeatureDescriptor features;
+  ValueSetter<LicenseDescriptor<TLicense>>? onLicenseTap;
+  ValueSetter<FeatureDescriptor<TFeature>>? onFeatureTap;
+  // static LicenseController<TL, TF> getInst<TL extends LicenseDescriptor, TF>() => instance as LicenseController<TL,TF>;
+  LicenseController();
 
-  void initialize(TLicense currentLicense, FeatureDescriptor<TLicense, TFeature> features) {
-    LicenseController.instance.currentLicense = currentLicense;
-    LicenseController.instance.features = features;
+  FeatureDescriptor<TFeature> getFeatureFromLicense(LicenseDescriptor license);
+
+  void initialize({
+    required LicenseController<TLicense, TFeature> controller,
+    required LicenseDescriptor currentLicense,
+    required FeatureDescriptor<TFeature> features,
+    ValueSetter<LicenseDescriptor<TLicense>>? onLicenseTap,
+    ValueSetter<FeatureDescriptor<TFeature>>? onFeatureTap,
+  }) {
+    LicenseController.instance = controller;
+    final fuck = LicenseController.instance as LicenseController<TLicense, TFeature>;
+    fuck.features = features;
+    fuck.currentLicense = currentLicense;
+    fuck.onFeatureTap = onFeatureTap;
+    fuck.onLicenseTap = onLicenseTap;
   }
+  // void initialize() {
+  //   // void initialize(TLicense currentLicense, FeatureDescriptor<TLicense, TFeature> features) {
+  //   LicenseController.instance.currentLicense = currentLicense;
+  //   LicenseController.instance.features = features;
+  // }
 
-  late TLicense currentLicense;
-  late final FeatureDescriptor<TLicense, TFeature>? features;
+  // LicenseController._();
+  // @protected
+  // LicenseController.protected();
 
-  LicenseController._();
-  @protected
-  LicenseController.protected();
-
-  void setLicense(TLicense value) {
+  void setLicense(LicenseDescriptor value) {
     currentLicense = value;
   }
 
-  TLicense getCurrentLicense() {
+  LicenseDescriptor getCurrentLicense() {
     return currentLicense;
   }
 
-  int getLicenseIndex(Object item) {
-    return item.index;
-  }
+  // int getLicenseIndex(Object item) {
+  //   return item.index;
+  // }
 
   int getCurrentLicenseIndex() {
     return currentLicense.index;
   }
 
-  bool isLicensed(TLicense item) {
-    if (item is LicensedWidget) {
-      return item.license.index <= currentLicense.index;
-      // } else if (item is FeaturedWidget) {
-      //   return item.feature.license.index <= currentLicense.index;
-    } else {
-      return true;
-    }
+  bool isLicensed<TLicense>(LicenseDescriptor item) {
+    return item.index <= currentLicense.index;
+    // } else if (item is FeaturedWidget) {
+    //   return item.feature.license.index <= currentLicense.index;
   }
 
-  FeatureDescriptor<TLicense, TFeature>? getFeature(TFeature key) {
-    return features?.findFeature(key);
+  FeatureDescriptor<TFeature> getFeature(TFeature key) {
+    return features.findFeature(key) as FeatureDescriptor<TFeature>;
   }
 }
 

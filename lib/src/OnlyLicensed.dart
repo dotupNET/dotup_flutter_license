@@ -3,88 +3,76 @@ import 'package:flutter/material.dart';
 
 import '../../dotup_flutter_license.dart';
 import 'ILicensedWidget.dart';
+import 'LicenseDescriptor.dart';
 
-class WithLicense<TLicense, TFeature> extends StatelessWidget implements LateLicense<TLicense> {
+class OnlyLicensed<TLicense> extends StatelessWidget {
   // final int currentLicense;
-  late final TLicense license;
+  late final LicenseDescriptor<TLicense> license;
   // late final LicenseController<TLicense, TFeature> controller;
-  late final FeatureDescriptor<TLicense, TFeature>? feature;
   final Widget child;
   final bool withBanner;
-  final ValueSetter<TLicense>? onLicenseTap;
-  final ValueSetter<FeatureDescriptor<TLicense, TFeature>>? onFeatureTap;
+  // late final ValueSetter<LicenseDescriptor>? _onLicenseTap;
+  late final ValueSetter<LicenseDescriptor<TLicense>>? _onLicenseTap;
   late final Color _bannerColor;
   late final bool isLicensed;
 
-  WithLicense({
+  OnlyLicensed({
     Key? key,
-    TLicense? license,
-    TFeature? feature,
-    // LicenseController<TLicense, TFeature>? controller,
+    required this.license,
     bool? isLicensed,
     required this.child,
     this.withBanner = false,
-    this.onLicenseTap,
-    this.onFeatureTap,
+    ValueSetter<LicenseDescriptor<TLicense>>? onLicenseTap,
     Color? bannerColor,
   }) : super(key: key) {
     _bannerColor = bannerColor ?? Colors.red;
 
-    this.feature = feature == null
-        ? null
-        : LicenseController.instance.getFeature(feature)! as FeatureDescriptor<TLicense, TFeature>;
+    final controller = LicenseController.instance as LicenseController<TLicense, dynamic>;
 
-    // if (controller != null) {
-    //   this.controller = controller;
-    // }
+    _onLicenseTap = onLicenseTap ?? controller.onLicenseTap;
 
-    this.license = license ?? this.feature!.license;
-
-    if (isLicensed != null) {
-      this.isLicensed = isLicensed;
-    }
+    this.isLicensed = isLicensed ?? controller.isLicensed(this.license);
   }
 
-  void initialize(bool isLicensed) {
-    // this.requiredLicense = requiredLicense;
-    this.isLicensed = isLicensed;
-  }
-
-  factory WithLicense.banner({
-    // required int currentLicense,
-    TFeature? feature,
-    TLicense? license,
-    // LicenseController<TLicense, TFeature>? controller,
+  factory OnlyLicensed.banner({
+    required LicenseDescriptor<TLicense> license,
     bool? isLicensed,
     required Widget child,
-    ValueSetter<TLicense>? onBannerTap,
+    ValueSetter<LicenseDescriptor<TLicense>>? onLicenseTap,
     Color? bannerColor,
   }) {
-    return WithLicense(
-      feature: feature,
+    return OnlyLicensed<TLicense>(
       // controller: controller,
       // currentLicense: currentLicense,
       license: license,
       isLicensed: isLicensed,
       child: child,
-      // onBannerTap: onBannerTap,
+      onLicenseTap: onLicenseTap,
       withBanner: true,
       bannerColor: bannerColor,
     );
   }
 
+  factory OnlyLicensed.hidden({required LicenseDescriptor<TLicense> license, required Widget child}) {
+    return OnlyLicensed<TLicense>(
+      license: license,
+      // feature: f,
+      child: child,
+      withBanner: false,
+    );
+  }
   @override
   Widget build(BuildContext context) {
     if (isLicensed) {
       return child;
     } else if (withBanner == true) {
-      if (onLicenseTap == null && onFeatureTap == null) {
+      if (_onLicenseTap == null) {
         return ClipRect(
           child: AbsorbPointer(
             child: Stack(children: [
               child,
               Banner(
-                message: describeEnum(license as dynamic),
+                message: license.label,
                 location: BannerLocation.topStart,
                 color: _bannerColor,
               ),
@@ -95,10 +83,10 @@ class WithLicense<TLicense, TFeature> extends StatelessWidget implements LateLic
         return ClipRect(
           child: InkWell(
             onTap: () {
-              if (feature != null && onFeatureTap != null) {
-                onFeatureTap!(feature!);
-              } else if (onLicenseTap != null) {
-                onLicenseTap!(license);
+              if (_onLicenseTap != null) {
+                _onLicenseTap!(license);
+                // } else if (_onLicenseTap != null) {
+                //   _onLicenseTap!(license);
               }
             },
             child: AbsorbPointer(
@@ -106,7 +94,7 @@ class WithLicense<TLicense, TFeature> extends StatelessWidget implements LateLic
                 children: [
                   child,
                   Banner(
-                    message: describeEnum(license as dynamic),
+                    message: license.label,
                     location: BannerLocation.topStart,
                   ),
                 ],
@@ -119,6 +107,25 @@ class WithLicense<TLicense, TFeature> extends StatelessWidget implements LateLic
       return SizedBox.shrink();
     }
   }
+
+  // @override
+  // void initialize(
+  //     {required bool isLicensed,
+  //     ValueSetter<LicenseDescriptor>? onLicenseTap,
+  //     ValueSetter<FeatureDescriptor<TLicense, TFeature>>? onFeatureTap}) {
+  //   // TODO: implement initialize
+  // }
+
+  // @override
+  // void initialize<TLicense, TFeature>({
+  //   required bool isLicensed,
+  //   ValueSetter<LicenseDescriptor>? onLicenseTap,
+  //   ValueSetter<FeatureDescriptor>? onFeatureTap,
+  // }) {
+  //   this.isLicensed = isLicensed;
+  //   this._onFeatureTap = onFeatureTap ;
+  //   this._onLicenseTap = onLicenseTap;
+  // }
 }
 
 // class LicensedWidget2<T> extends StatelessWidget {

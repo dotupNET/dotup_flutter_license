@@ -137,10 +137,10 @@
       "name": "dotup_flutter_license",
       "rootUri": "../",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "2.13"
     }
   ],
-  "generated": "2021-07-26T09:37:56.824758Z",
+  "generated": "2021-07-27T05:02:04.609052Z",
   "generator": "pub",
   "generatorVersion": "2.13.4"
 }

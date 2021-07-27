@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class NoLicenseWidget extends StatelessWidget {
-  const NoLicenseWidget({Key? key}) : super(key: key);
+class FreeWidget extends StatelessWidget {
+  const FreeWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -2,26 +2,25 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../../dotup_flutter_license.dart';
+import 'TypeDefs.dart';
 
 class WithFeature<TFeature> extends StatelessWidget {
   late final FeatureDescriptor<TFeature> feature;
   final Widget child;
-  final bool withBanner;
   late final ValueSetter<FeatureDescriptor<TFeature>>? _onFeatureTap;
-  late final Color _bannerColor;
   late final bool isLicensed;
+  final bool withBanner;
+  late final DecorationBuilder<FeatureDescriptor<TFeature>>? bannerDecorationBuilder;
 
-  WithFeature({
-    Key? key,
-    required TFeature feature,
-    bool? isLicensed,
-    required this.child,
-    this.withBanner = false,
-    ValueSetter<FeatureDescriptor<TFeature>>? onFeatureTap,
-    Color? bannerColor,
-  }) : super(key: key) {
-    _bannerColor = bannerColor ?? Colors.red;
-
+  WithFeature(
+      {Key? key,
+      required TFeature feature,
+      bool? isLicensed,
+      required this.child,
+      ValueSetter<FeatureDescriptor<TFeature>>? onFeatureTap,
+      required this.withBanner,
+      this.bannerDecorationBuilder})
+      : super(key: key) {
     final featureDescriptor = LicenseController.instance.getFeature(feature);
     this.feature = featureDescriptor as FeatureDescriptor<TFeature>;
 
@@ -37,44 +36,60 @@ class WithFeature<TFeature> extends StatelessWidget {
     bool? isLicensed,
     required Widget child,
     ValueSetter<FeatureDescriptor<TFeature>>? onBannerTap,
-    Color? bannerColor,
+    DecorationBuilder<FeatureDescriptor<TFeature>>? bannerDecorationBuilder,
   }) {
     return WithFeature<TFeature>(
-      // controller: controller,
-      // currentLicense: currentLicense,
       feature: feature,
       isLicensed: isLicensed,
       child: child,
-      // onBannerTap: onBannerTap,
       withBanner: true,
-      bannerColor: bannerColor,
+      bannerDecorationBuilder: bannerDecorationBuilder,
     );
   }
 
   factory WithFeature.hidden({required TFeature feature, required Widget child}) {
     return WithFeature<TFeature>(
       feature: feature,
-      // feature: f,
       child: child,
       withBanner: false,
     );
   }
+
   @override
   Widget build(BuildContext context) {
     if (isLicensed) {
       return child;
     } else if (withBanner == true) {
+      if (bannerDecorationBuilder != null) {
+        return InkWell(
+          onTap: () {
+            if (_onFeatureTap != null) {
+              _onFeatureTap!(feature);
+            }
+          },
+          child: AbsorbPointer(
+            child: Container(
+              child: child,
+              foregroundDecoration: bannerDecorationBuilder!(context, child, feature),
+            ),
+          ),
+        );
+      }
+
       if (_onFeatureTap == null) {
         return ClipRect(
           child: AbsorbPointer(
-            child: Stack(children: [
-              child,
-              Banner(
-                message: feature.license.label,
-                location: BannerLocation.topStart,
-                color: _bannerColor,
-              ),
-            ]),
+            child: Stack(
+              alignment: AlignmentDirectional.topStart,
+              children: [
+                child,
+                Banner(
+                  message: feature.license.label,
+                  location: BannerLocation.topStart,
+                  color: feature.license.color,
+                ),
+              ],
+            ),
           ),
         );
       } else {
@@ -83,17 +98,17 @@ class WithFeature<TFeature> extends StatelessWidget {
             onTap: () {
               if (_onFeatureTap != null) {
                 _onFeatureTap!(feature);
-                // } else if (_onLicenseTap != null) {
-                //   _onLicenseTap!(license);
               }
             },
             child: AbsorbPointer(
               child: Stack(
+                alignment: AlignmentDirectional.topStart,
                 children: [
                   child,
                   Banner(
                     message: feature.license.label,
                     location: BannerLocation.topStart,
+                    color: feature.license.color,
                   ),
                 ],
               ),
@@ -105,4 +120,50 @@ class WithFeature<TFeature> extends StatelessWidget {
       return SizedBox.shrink();
     }
   }
+  // @override
+  // Widget build(BuildContext context) {
+  //   if (isLicensed) {
+  //     return child;
+  //   } else if (withBanner == true) {
+  //     if (_onFeatureTap == null) {
+  //       return ClipRect(
+  //         child: AbsorbPointer(
+  //           child: Stack(children: [
+  //             child,
+  //             Banner(
+  //               message: feature.license.label,
+  //               location: BannerLocation.topStart,
+  //               color: _bannerColor,
+  //             ),
+  //           ]),
+  //         ),
+  //       );
+  //     } else {
+  //       return ClipRect(
+  //         child: InkWell(
+  //           onTap: () {
+  //             if (_onFeatureTap != null) {
+  //               _onFeatureTap!(feature);
+  //               // } else if (_onLicenseTap != null) {
+  //               //   _onLicenseTap!(license);
+  //             }
+  //           },
+  //           child: AbsorbPointer(
+  //             child: Stack(
+  //               children: [
+  //                 child,
+  //                 Banner(
+  //                   message: feature.license.label,
+  //                   location: BannerLocation.topStart,
+  //                 ),
+  //               ],
+  //             ),
+  //           ),
+  //         ),
+  //       );
+  //     }
+  //   } else {
+  //     return SizedBox.shrink();
+  //   }
+  // }
 }

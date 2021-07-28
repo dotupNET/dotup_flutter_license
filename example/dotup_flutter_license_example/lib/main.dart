@@ -95,7 +95,7 @@ class _LicenseExampleScaffoldState extends State<LicenseExampleScaffold> {
                 bannerDecorationBuilder: (context, child, license) {
                   return TriangleDecoration(
                     size: Size.square(30),
-                    color: Colors.red,
+                    color: license.color,
                     textSpan: TextSpan(
                       style: TextStyle(color: Colors.white, fontSize: 12.0, fontFamily: 'Roboto'),
                       text: 'P',
@@ -112,7 +112,7 @@ class _LicenseExampleScaffoldState extends State<LicenseExampleScaffold> {
                 bannerDecorationBuilder: (context, child, license) {
                   return TriangleDecoration(
                     size: Size(24, 24),
-                    color: Colors.red.withOpacity(0.9),
+                    color: license.color,
                     textSpan: TextSpan(
                       style: TextStyle(color: Colors.white, fontSize: 11.0, fontFamily: 'Roboto'),
                       text: 'Pro',
@@ -184,6 +184,23 @@ class _LicenseExampleScaffoldState extends State<LicenseExampleScaffold> {
               ),
               SizedBox(height: 10),
               Text('With features'),
+              SizedBox(height: 10),
+              WithFeature.banner(
+                feature: CustomerFeatureKey.Pro,
+                child: ListTile(
+                  title: Text('TriangleDecoration Pro Feature'),
+                ),
+                bannerDecorationBuilder: (context, child, item) {
+                  return TriangleDecoration(
+                    size: Size.square(30),
+                    color: item.license.color,
+                    textSpan: TextSpan(
+                      style: TextStyle(color: Colors.white, fontSize: 12.0, fontFamily: 'Roboto'),
+                      text: 'P',
+                    ),
+                  );
+                },
+              ),
               SizedBox(height: 10),
               WithFeature.banner(feature: CustomerFeatureKey.None, child: NoLicenseWidget()),
               SizedBox(height: 10),

@@ -25,7 +25,7 @@ class AppLicenseController extends LicenseController<LicenseType, CustomerFeatur
 
   AppLicenseController._();
 
-  Color get bannerColor => Colors.red;
+  // Color get bannerColor => Colors.red.withOpacity(0.5);
 
   void onBannerTap(LicenseType licenseType) {
     print('Banner tapped $licenseType');

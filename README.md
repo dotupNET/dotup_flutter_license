@@ -4,6 +4,11 @@ Small package to decorate Widgets with an License Banner.
 
 [dotup.de](https://dotup.de)
 
+## install
+`flutter pub add dotup_flutter_license`
+
+[dotup_flutter_license on pub.dev](https://pub.dev/packages/dotup_flutter_license)
+
 
 ## Getting Started
 

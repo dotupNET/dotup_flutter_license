@@ -19,7 +19,7 @@ class WithLicense<TLicense> extends StatelessWidget {
     bool? isLicensed,
     required this.child,
     ValueSetter<LicenseDescriptor<TLicense>>? onLicenseTap,
-    required this.withBanner,
+    this.withBanner = false,
     this.bannerDecorationBuilder,
   }) : super(key: key) {
     final controller = LicenseController.instance as LicenseController<TLicense, dynamic>;

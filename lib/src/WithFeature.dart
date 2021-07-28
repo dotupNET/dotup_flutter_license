@@ -18,7 +18,7 @@ class WithFeature<TFeature> extends StatelessWidget {
       bool? isLicensed,
       required this.child,
       ValueSetter<FeatureDescriptor<TFeature>>? onFeatureTap,
-      required this.withBanner,
+      this.withBanner = false,
       this.bannerDecorationBuilder})
       : super(key: key) {
     final featureDescriptor = LicenseController.instance.getFeature(feature);

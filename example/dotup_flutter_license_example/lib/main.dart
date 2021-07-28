@@ -16,6 +16,8 @@ void main() {
   runApp(LicenseExample());
 }
 
+final notLicensedDecoration = BoxDecoration(color: Colors.grey.shade800.withOpacity(0.6));
+
 class LicenseExample extends StatelessWidget {
   // This widget is the root of your application.
   @override
@@ -119,6 +121,7 @@ class _LicenseExampleScaffoldState extends State<LicenseExampleScaffold> {
                     ),
                   );
                 },
+                notLicensedDecoration: notLicensedDecoration,
                 // decorationBuilder: (context, child, license) {
                 //   // return ShapeDecoration(
                 //   //   color: Colors.white,
@@ -161,26 +164,31 @@ class _LicenseExampleScaffoldState extends State<LicenseExampleScaffold> {
               WithLicense.banner(
                 license: AppLicense.None,
                 child: NoLicenseWidget(),
+                notLicensedDecoration: notLicensedDecoration,
               ),
               SizedBox(height: 10),
               WithLicense.banner(
                 license: AppLicense.Free,
                 child: FreeWidget(),
+                notLicensedDecoration: notLicensedDecoration,
               ),
               SizedBox(height: 10),
               WithLicense.banner(
                 license: AppLicense.Basic,
                 child: BasicWidget(),
+                notLicensedDecoration: notLicensedDecoration,
               ),
               SizedBox(height: 10),
               WithLicense.banner(
                 license: AppLicense.Pro,
                 child: ProWidget(),
+                notLicensedDecoration: notLicensedDecoration,
               ),
               SizedBox(height: 10),
               WithLicense.banner(
                 license: AppLicense.Enterprise,
                 child: EnterpriseWidget(),
+                notLicensedDecoration: notLicensedDecoration,
               ),
               SizedBox(height: 10),
               Text('With features'),

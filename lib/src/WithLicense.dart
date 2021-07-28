@@ -12,6 +12,7 @@ class WithLicense<TLicense> extends StatelessWidget {
   late final bool isLicensed;
   final bool withBanner;
   late final DecorationBuilder<LicenseDescriptor<TLicense>>? bannerDecorationBuilder;
+  late final Decoration? notLicensedDecoration;
 
   WithLicense({
     Key? key,
@@ -21,6 +22,7 @@ class WithLicense<TLicense> extends StatelessWidget {
     ValueSetter<LicenseDescriptor<TLicense>>? onLicenseTap,
     this.withBanner = false,
     this.bannerDecorationBuilder,
+    this.notLicensedDecoration,
   }) : super(key: key) {
     final controller = LicenseController.instance as LicenseController<TLicense, dynamic>;
 
@@ -35,6 +37,7 @@ class WithLicense<TLicense> extends StatelessWidget {
     required Widget child,
     ValueSetter<LicenseDescriptor<TLicense>>? onLicenseTap,
     DecorationBuilder<LicenseDescriptor<TLicense>>? bannerDecorationBuilder,
+    Decoration? notLicensedDecoration,
   }) {
     return WithLicense<TLicense>(
       license: license,
@@ -43,6 +46,7 @@ class WithLicense<TLicense> extends StatelessWidget {
       onLicenseTap: onLicenseTap,
       withBanner: true,
       bannerDecorationBuilder: bannerDecorationBuilder,
+      notLicensedDecoration: notLicensedDecoration,
     );
   }
 
@@ -68,7 +72,10 @@ class WithLicense<TLicense> extends StatelessWidget {
           },
           child: AbsorbPointer(
             child: Container(
-              child: child,
+              child: Container(
+                child: child,
+                foregroundDecoration: notLicensedDecoration,
+              ),
               foregroundDecoration: bannerDecorationBuilder!(context, child, license),
             ),
           ),
@@ -81,7 +88,10 @@ class WithLicense<TLicense> extends StatelessWidget {
             child: Stack(
               alignment: AlignmentDirectional.topStart,
               children: [
-                child,
+                Container(
+                  child: child,
+                  foregroundDecoration: notLicensedDecoration,
+                ),
                 Banner(
                   message: license.label,
                   location: BannerLocation.topStart,
@@ -103,7 +113,10 @@ class WithLicense<TLicense> extends StatelessWidget {
               child: Stack(
                 alignment: AlignmentDirectional.topStart,
                 children: [
-                  child,
+                  Container(
+                    child: child,
+                    foregroundDecoration: notLicensedDecoration,
+                  ),
                   Banner(
                     message: license.label,
                     location: BannerLocation.topStart,

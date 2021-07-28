@@ -11,16 +11,18 @@ class WithFeature<TFeature> extends StatelessWidget {
   late final bool isLicensed;
   final bool withBanner;
   late final DecorationBuilder<FeatureDescriptor<TFeature>>? bannerDecorationBuilder;
+  late final Decoration? notLicensedDecoration;
 
-  WithFeature(
-      {Key? key,
-      required TFeature feature,
-      bool? isLicensed,
-      required this.child,
-      ValueSetter<FeatureDescriptor<TFeature>>? onFeatureTap,
-      this.withBanner = false,
-      this.bannerDecorationBuilder})
-      : super(key: key) {
+  WithFeature({
+    Key? key,
+    required TFeature feature,
+    bool? isLicensed,
+    required this.child,
+    ValueSetter<FeatureDescriptor<TFeature>>? onFeatureTap,
+    this.withBanner = false,
+    this.bannerDecorationBuilder,
+    this.notLicensedDecoration,
+  }) : super(key: key) {
     final featureDescriptor = LicenseController.instance.getFeature(feature);
     this.feature = featureDescriptor as FeatureDescriptor<TFeature>;
 
@@ -37,6 +39,7 @@ class WithFeature<TFeature> extends StatelessWidget {
     required Widget child,
     ValueSetter<FeatureDescriptor<TFeature>>? onBannerTap,
     DecorationBuilder<FeatureDescriptor<TFeature>>? bannerDecorationBuilder,
+    Decoration? notLicensedDecoration,
   }) {
     return WithFeature<TFeature>(
       feature: feature,
@@ -44,6 +47,7 @@ class WithFeature<TFeature> extends StatelessWidget {
       child: child,
       withBanner: true,
       bannerDecorationBuilder: bannerDecorationBuilder,
+      notLicensedDecoration: notLicensedDecoration,
     );
   }
 
@@ -82,7 +86,10 @@ class WithFeature<TFeature> extends StatelessWidget {
             child: Stack(
               alignment: AlignmentDirectional.topStart,
               children: [
-                child,
+                Container(
+                  child: child,
+                  foregroundDecoration: notLicensedDecoration,
+                ),
                 Banner(
                   message: feature.license.label,
                   location: BannerLocation.topStart,
@@ -104,7 +111,10 @@ class WithFeature<TFeature> extends StatelessWidget {
               child: Stack(
                 alignment: AlignmentDirectional.topStart,
                 children: [
-                  child,
+                  Container(
+                    child: child,
+                    foregroundDecoration: notLicensedDecoration,
+                  ),
                   Banner(
                     message: feature.license.label,
                     location: BannerLocation.topStart,

@@ -8,6 +8,7 @@ import 'package:dotup_flutter_license_example/LicensedWidgets/FreeWidget.dart';
 import 'package:dotup_flutter_license_example/LicensedWidgets/ProWidget.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:rotated_corner_decoration/rotated_corner_decoration.dart';
 
 import 'LicensedWidgets/NoLicenseWidget.dart';
 
@@ -85,6 +86,77 @@ class _LicenseExampleScaffoldState extends State<LicenseExampleScaffold> {
                     ),
                   ],
                 ),
+              ),
+              WithLicense(
+                license: AppLicense.Pro,
+                child: ListTile(
+                  title: Text('Pro ListTile'),
+                ),
+                bannerDecorationBuilder: (context, child, license) {
+                  return TriangleDecoration(
+                    size: Size.square(30),
+                    color: Colors.red,
+                    textSpan: TextSpan(
+                      style: TextStyle(color: Colors.white, fontSize: 12.0, fontFamily: 'Roboto'),
+                      text: 'P',
+                    ),
+                  );
+                },
+                withBanner: true,
+              ),
+              WithLicense(
+                license: AppLicense.Pro,
+                child: ListTile(
+                  title: Text('Pro ListTile 22'),
+                ),
+                bannerDecorationBuilder: (context, child, license) {
+                  return TriangleDecoration(
+                    size: Size(24, 24),
+                    color: Colors.red.withOpacity(0.9),
+                    textSpan: TextSpan(
+                      style: TextStyle(color: Colors.white, fontSize: 11.0, fontFamily: 'Roboto'),
+                      text: 'Pro',
+                    ),
+                  );
+                },
+                // decorationBuilder: (context, child, license) {
+                //   // return ShapeDecoration(
+                //   //   color: Colors.white,
+                //   //   shape: Border.all(
+                //   //     color: Colors.red,
+                //   //     width: 8.0,
+                //   //   ),
+                //   // );
+                //   // return RotatedCornerDecoration(
+                //   //   badgeShadow: BadgeShadow(color: Colors.grey, elevation: 2),
+                //   //   color: Colors.red,
+                //   //   geometry:
+                //   //       const BadgeGeometry(width: 30, height: 30, alignment: BadgeAlignment.topLeft, cornerRadius: 15),
+                //   //   textSpan: TextSpan(
+                //   //     text: license.label,
+                //   //     style: TextStyle(fontSize: 10, color: Colors.white),
+                //   //   ),
+                //   // );
+                // },
+                // banner: Container(
+                //   // padding: const EdgeInsets.all(12),
+                //   child: ListTile(
+                //     title: Text('Pro ListTile abc'),
+                //   ),
+                //   // alignment: Alignment.topRight,
+
+                //   foregroundDecoration: const RotatedCornerDecoration(
+                //     badgeShadow: BadgeShadow(color: Colors.grey, elevation: 2),
+                //     color: Colors.red,
+                //     geometry:
+                //         const BadgeGeometry(width: 30, height: 30, alignment: BadgeAlignment.topLeft, cornerRadius: 0),
+                //     textSpan: const TextSpan(
+                //       text: 'Pro',
+                //       style: TextStyle(fontSize: 10, color: Colors.white),
+                //     ),
+                //   ),
+                // ),
+                withBanner: true,
               ),
               WithLicense.banner(
                 license: AppLicense.None,

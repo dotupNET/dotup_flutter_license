@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import '../../dotup_flutter_license.dart';
 import 'LicenseDescriptor.dart';
 
+typedef DecorationBuilder<T> = Decoration Function(BuildContext context, Widget child, LicenseDescriptor<T>);
+
 class WithLicense<TLicense> extends StatelessWidget {
   late final LicenseDescriptor<TLicense> license;
   final Widget child;
@@ -11,6 +13,7 @@ class WithLicense<TLicense> extends StatelessWidget {
   late final ValueSetter<LicenseDescriptor<TLicense>>? _onLicenseTap;
   late final Color _bannerColor;
   late final bool isLicensed;
+  late final DecorationBuilder<TLicense>? bannerDecorationBuilder;
 
   WithLicense({
     Key? key,
@@ -20,6 +23,7 @@ class WithLicense<TLicense> extends StatelessWidget {
     this.withBanner = false,
     ValueSetter<LicenseDescriptor<TLicense>>? onLicenseTap,
     Color? bannerColor,
+    this.bannerDecorationBuilder,
   }) : super(key: key) {
     _bannerColor = bannerColor ?? Colors.red;
 
@@ -59,20 +63,43 @@ class WithLicense<TLicense> extends StatelessWidget {
   }
   @override
   Widget build(BuildContext context) {
+    if (bannerDecorationBuilder != null) {
+      // return Container(
+      //   child: child,
+      //   foregroundDecoration: decorationBuilder!(context, child, license),
+      // );
+      return InkWell(
+        onTap: () {
+          if (_onLicenseTap != null) {
+            _onLicenseTap!(license);
+          }
+        },
+        child: AbsorbPointer(
+          child: Container(
+            child: child,
+            foregroundDecoration: bannerDecorationBuilder!(context, child, license),
+          ),
+        ),
+      );
+    }
+
     if (isLicensed) {
       return child;
     } else if (withBanner == true) {
       if (_onLicenseTap == null) {
         return ClipRect(
           child: AbsorbPointer(
-            child: Stack(children: [
-              child,
-              Banner(
-                message: license.label,
-                location: BannerLocation.topStart,
-                color: _bannerColor,
-              ),
-            ]),
+            child: Stack(
+              alignment: AlignmentDirectional.topStart,
+              children: [
+                child,
+                Banner(
+                  message: license.label,
+                  location: BannerLocation.topStart,
+                  color: _bannerColor,
+                ),
+              ],
+            ),
           ),
         );
       } else {
@@ -85,11 +112,13 @@ class WithLicense<TLicense> extends StatelessWidget {
             },
             child: AbsorbPointer(
               child: Stack(
+                alignment: AlignmentDirectional.topStart,
                 children: [
                   child,
                   Banner(
                     message: license.label,
                     location: BannerLocation.topStart,
+                    color: _bannerColor,
                   ),
                 ],
               ),

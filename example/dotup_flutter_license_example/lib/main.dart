@@ -90,9 +90,26 @@ class _LicenseExampleScaffoldState extends State<LicenseExampleScaffold> {
                 ),
               ),
               WithLicense(
+                license: AppLicense.Basic,
+                child: OutlinedButton(child: Text('TriangleDecoration license Basic'), onPressed: () {}),
+                bannerDecorationBuilder: (context, child, license) {
+                  return TriangleDecoration(
+                    size: Size.square(20),
+                    color: license.color,
+                    textSpan: TextSpan(
+                      style: TextStyle(color: Colors.white, fontSize: 10.0, fontFamily: 'Roboto'),
+                      text: 'B',
+                    ),
+                  );
+                },
+                notLicensedDecoration: notLicensedDecoration,
+                withBanner: true,
+                onLicenseTap: (license) => print(license),
+              ),
+              WithLicense(
                 license: AppLicense.Pro,
                 child: ListTile(
-                  title: Text('Pro ListTile'),
+                  title: Text('TriangleDecoration Pro ListTile'),
                 ),
                 bannerDecorationBuilder: (context, child, license) {
                   return TriangleDecoration(
@@ -161,37 +178,9 @@ class _LicenseExampleScaffoldState extends State<LicenseExampleScaffold> {
                 // ),
                 withBanner: true,
               ),
-              WithLicense.banner(
-                license: AppLicense.None,
-                child: NoLicenseWidget(),
-                notLicensedDecoration: notLicensedDecoration,
-              ),
+              ..._getLicenseWidgets(),
               SizedBox(height: 10),
-              WithLicense.banner(
-                license: AppLicense.Free,
-                child: FreeWidget(),
-                notLicensedDecoration: notLicensedDecoration,
-              ),
-              SizedBox(height: 10),
-              WithLicense.banner(
-                license: AppLicense.Basic,
-                child: BasicWidget(),
-                notLicensedDecoration: notLicensedDecoration,
-              ),
-              SizedBox(height: 10),
-              WithLicense.banner(
-                license: AppLicense.Pro,
-                child: ProWidget(),
-                notLicensedDecoration: notLicensedDecoration,
-              ),
-              SizedBox(height: 10),
-              WithLicense.banner(
-                license: AppLicense.Enterprise,
-                child: EnterpriseWidget(),
-                notLicensedDecoration: notLicensedDecoration,
-              ),
-              SizedBox(height: 10),
-              Text('With features'),
+              ..._getFeatureWidgets(),
               SizedBox(height: 10),
               WithFeature.banner(
                 feature: CustomerFeatureKey.Pro,
@@ -209,17 +198,6 @@ class _LicenseExampleScaffoldState extends State<LicenseExampleScaffold> {
                   );
                 },
               ),
-              SizedBox(height: 10),
-              WithFeature.banner(feature: CustomerFeatureKey.None, child: NoLicenseWidget()),
-              SizedBox(height: 10),
-              WithFeature.banner(feature: CustomerFeatureKey.Free, child: FreeWidget()),
-              SizedBox(height: 10),
-              WithFeature.banner(feature: CustomerFeatureKey.Basic, child: BasicWidget()),
-              SizedBox(height: 10),
-              WithFeature.banner(feature: CustomerFeatureKey.Pro, child: ProWidget()),
-              SizedBox(height: 10),
-              WithFeature.banner(feature: CustomerFeatureKey.Enterprise, child: EnterpriseWidget()),
-              SizedBox(height: 10),
             ],
           ),
         ),
@@ -231,5 +209,56 @@ class _LicenseExampleScaffoldState extends State<LicenseExampleScaffold> {
     setState(() {
       controller.setLicense(AppLicense.getDescriptor(index));
     });
+  }
+
+  List<Widget> _getLicenseWidgets() {
+    return [
+      WithLicense.banner(
+        license: AppLicense.None,
+        child: NoLicenseWidget(),
+        notLicensedDecoration: notLicensedDecoration,
+      ),
+      SizedBox(height: 10),
+      WithLicense.banner(
+        license: AppLicense.Free,
+        child: FreeWidget(),
+        notLicensedDecoration: notLicensedDecoration,
+      ),
+      SizedBox(height: 10),
+      WithLicense.banner(
+        license: AppLicense.Basic,
+        child: BasicWidget(),
+        notLicensedDecoration: notLicensedDecoration,
+      ),
+      SizedBox(height: 10),
+      WithLicense.banner(
+        license: AppLicense.Pro,
+        child: ProWidget(),
+        notLicensedDecoration: notLicensedDecoration,
+      ),
+      SizedBox(height: 10),
+      WithLicense.banner(
+        license: AppLicense.Enterprise,
+        child: EnterpriseWidget(),
+        notLicensedDecoration: notLicensedDecoration,
+      ),
+    ];
+  }
+
+  _getFeatureWidgets() {
+    return [
+      Text('With features'),
+      SizedBox(height: 10),
+      WithFeature.banner(feature: CustomerFeatureKey.None, child: NoLicenseWidget()),
+      SizedBox(height: 10),
+      WithFeature.banner(feature: CustomerFeatureKey.Free, child: FreeWidget()),
+      SizedBox(height: 10),
+      WithFeature.banner(feature: CustomerFeatureKey.Basic, child: BasicWidget()),
+      SizedBox(height: 10),
+      WithFeature.banner(feature: CustomerFeatureKey.Pro, child: ProWidget()),
+      SizedBox(height: 10),
+      WithFeature.banner(feature: CustomerFeatureKey.Enterprise, child: EnterpriseWidget()),
+      SizedBox(height: 10),
+    ];
   }
 }

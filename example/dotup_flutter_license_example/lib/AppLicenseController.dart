@@ -11,7 +11,7 @@ class AppLicenseController extends LicenseController<LicenseType, CustomerFeatur
 
   static late final AppLicenseController instance = AppLicenseController._();
 
-  AppLicenseController configure(LicenseDescriptor currentLicense) {
+  AppLicenseController configure(LicenseDescriptor<LicenseType> currentLicense) {
     final config = FeatureConfiguration();
     super.initialize(
       currentLicense: currentLicense,
@@ -32,7 +32,7 @@ class AppLicenseController extends LicenseController<LicenseType, CustomerFeatur
   }
 
   @override
-  FeatureDescriptor<CustomerFeatureKey> getFeatureFromLicense(LicenseDescriptor license) {
+  FeatureDescriptor<CustomerFeatureKey> getFeatureFromLicense(LicenseDescriptor<LicenseType> license) {
     // final licenseDescriptor = AppLicense.getDescriptor(license.index);
     return FeatureDescriptor<CustomerFeatureKey>(
         key: CustomerFeatureKey.None, license: license, name: '', description: '');

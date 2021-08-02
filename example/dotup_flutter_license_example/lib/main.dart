@@ -36,13 +36,13 @@ class LicenseExampleScaffold extends StatefulWidget {
   LicenseExampleScaffold({
     Key? key,
     required this.title,
-    LicenseDescriptor? initialLicense,
+    LicenseDescriptor<LicenseType>? initialLicense,
   }) : super(key: key) {
     _initialLicense = initialLicense ?? AppLicense.Free;
   }
 
   final String title;
-  late final LicenseDescriptor _initialLicense;
+  late final LicenseDescriptor<LicenseType> _initialLicense;
 
   @override
   _LicenseExampleScaffoldState createState() => _LicenseExampleScaffoldState();

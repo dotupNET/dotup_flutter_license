@@ -1,7 +1,7 @@
 import 'package:dotup_flutter_license/dotup_flutter_license.dart';
 import 'package:dotup_flutter_license_example/LicenseType.dart';
 
-enum CustomerFeatureKey {
+enum FeatureKey {
   None,
   Free,
   Basic,
@@ -10,37 +10,37 @@ enum CustomerFeatureKey {
 }
 
 class FeatureConfiguration {
-  late final FeatureDescriptor<CustomerFeatureKey> customerFeatures;
+  late final FeatureDescriptor<FeatureKey> features;
 
-  FeatureDescriptor<CustomerFeatureKey> getDescriptor(CustomerFeatureKey key) => customerFeatures.findFeature(key);
+  FeatureDescriptor<FeatureKey> getDescriptor(FeatureKey key) => features.findFeature(key);
 
   FeatureConfiguration() {
-    customerFeatures = FeatureDescriptor<CustomerFeatureKey>(
-      key: CustomerFeatureKey.None,
+    features = FeatureDescriptor<FeatureKey>(
+      key: FeatureKey.None,
       license: AppLicense.None,
       name: 'Kunden',
       description: 'Stammdaten Kunden',
       features: [
         FeatureDescriptor(
-          key: CustomerFeatureKey.Free,
+          key: FeatureKey.Free,
           license: AppLicense.Free,
           name: 'Suche',
           description: 'Suchfeld in QuickBar ein- und ausblenden',
         ),
         FeatureDescriptor(
-          key: CustomerFeatureKey.Basic,
+          key: FeatureKey.Basic,
           license: AppLicense.Basic,
           name: 'Schnelles hinzufügen',
           description: 'Suchfeld in QuickBar ein- und ausblenden',
         ),
         FeatureDescriptor(
-          key: CustomerFeatureKey.Pro,
+          key: FeatureKey.Pro,
           license: AppLicense.Pro,
           name: 'Quickfilter',
           description: 'KOnfiguration des Quickfilter',
         ),
         FeatureDescriptor(
-          key: CustomerFeatureKey.Enterprise,
+          key: FeatureKey.Enterprise,
           license: AppLicense.Enterprise,
           name: 'Filter',
           description: 'Filter im Listenheader',

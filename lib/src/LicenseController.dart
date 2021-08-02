@@ -7,24 +7,24 @@ abstract class LicenseController<TLicense, TFeature> {
   static late final LicenseController instance;
 
   late LicenseDescriptor<TLicense> currentLicense;
-  late final FeatureDescriptor<TFeature> features;
+  // late final FeatureDescriptor<TFeature> features;
   ValueSetter<LicenseDescriptor<TLicense>>? onLicenseTap;
   ValueSetter<FeatureDescriptor<TFeature>>? onFeatureTap;
 
   LicenseController();
 
-  FeatureDescriptor<TFeature> getFeatureFromLicense(LicenseDescriptor<TLicense> license);
+  // FeatureDescriptor<TFeature> getFeatureFromLicense(LicenseDescriptor<TLicense> license);
 
   void initialize({
     required LicenseController<TLicense, TFeature> controller,
     required LicenseDescriptor<TLicense> currentLicense,
-    required FeatureDescriptor<TFeature> features,
+    // required FeatureDescriptor<TFeature> features,
     ValueSetter<LicenseDescriptor<TLicense>>? onLicenseTap,
     ValueSetter<FeatureDescriptor<TFeature>>? onFeatureTap,
   }) {
     LicenseController.instance = controller;
     final fuck = LicenseController.instance as LicenseController<TLicense, TFeature>;
-    fuck.features = features;
+    // fuck.features = features;
     fuck.currentLicense = currentLicense;
     fuck.onFeatureTap = onFeatureTap;
     fuck.onLicenseTap = onLicenseTap;
@@ -46,7 +46,7 @@ abstract class LicenseController<TLicense, TFeature> {
     return item.index <= currentLicense.index;
   }
 
-  FeatureDescriptor<TFeature> getFeature(TFeature key) {
-    return features.findFeature(key);
-  }
+  FeatureDescriptor<TFeature> getFeature(TFeature key);
+  //   return features.findFeature(key);
+  // }
 }

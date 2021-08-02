@@ -13,3 +13,7 @@
 ## 0.1.1
 
 * Fix: Added missing generic type arguments.
+
+## 0.2.0
+
+* License controller without features

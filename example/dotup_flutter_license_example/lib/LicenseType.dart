@@ -42,7 +42,5 @@ class AppLicense {
 
   static List<LicenseDescriptor<LicenseType>> get values => [None, Free, Basic, Pro, Enterprise];
 
-  static LicenseDescriptor<LicenseType> getDescriptor(int? index) {
-    return values.firstWhere((element) => element.index == index);
-  }
+
 }

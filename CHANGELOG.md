@@ -5,3 +5,7 @@
 ## 0.0.6
 
 * LicenseDescriptor operators.
+
+## 0.1.0
+
+* abstract LicenseDescriptor.

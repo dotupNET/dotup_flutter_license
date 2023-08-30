@@ -1,9 +1,7 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../../dotup_flutter_license.dart';
-import 'LicenseDescriptor.dart';
-import 'TypeDefs.dart';
+import 'type_defs.dart';
 
 class WithLicense<TLicense> extends StatelessWidget {
   late final LicenseDescriptor<TLicense> license;

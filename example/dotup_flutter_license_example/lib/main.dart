@@ -1,16 +1,14 @@
 import 'package:dotup_flutter_license/dotup_flutter_license.dart';
-import 'package:dotup_flutter_license_example/AppLicenseController.dart';
-import 'package:dotup_flutter_license_example/FeatureConfiguration.dart';
-import 'package:dotup_flutter_license_example/LicensedWidgets/BasicWidget.dart';
-import 'package:dotup_flutter_license_example/LicensedWidgets/EnterpriseWidget.dart';
-import 'package:dotup_flutter_license_example/LicenseType.dart';
-import 'package:dotup_flutter_license_example/LicensedWidgets/FreeWidget.dart';
-import 'package:dotup_flutter_license_example/LicensedWidgets/ProWidget.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:rotated_corner_decoration/rotated_corner_decoration.dart';
 
-import 'LicensedWidgets/NoLicenseWidget.dart';
+import 'app_license_controller.dart';
+import 'feature_configuration.dart';
+import 'license_type.dart';
+import 'licensed_widgets/basic_widget.dart';
+import 'licensed_widgets/enterprise_widget.dart';
+import 'licensed_widgets/free_widget.dart';
+import 'licensed_widgets/no_license_widget.dart';
+import 'licensed_widgets/pro_widget.dart';
 
 void main() {
   runApp(LicenseExample());

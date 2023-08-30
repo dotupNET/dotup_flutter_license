@@ -1,8 +1,7 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../../dotup_flutter_license.dart';
-import 'TypeDefs.dart';
+import 'type_defs.dart';
 
 class WithFeature<TFeature> extends StatelessWidget {
   late final FeatureDescriptor<TFeature> feature;

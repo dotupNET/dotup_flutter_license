@@ -1,5 +1,6 @@
 import 'package:dotup_flutter_license/dotup_flutter_license.dart';
-import 'package:dotup_flutter_license_example/LicenseType.dart';
+
+import 'license_type.dart';
 
 enum FeatureKey {
   None,

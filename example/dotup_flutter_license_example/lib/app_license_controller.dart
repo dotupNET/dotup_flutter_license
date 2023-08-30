@@ -1,8 +1,7 @@
 import 'package:dotup_flutter_license/dotup_flutter_license.dart';
-import 'package:flutter/material.dart';
 
-import 'FeatureConfiguration.dart';
-import 'LicenseType.dart';
+import 'feature_configuration.dart';
+import 'license_type.dart';
 
 class AppLicenseController extends LicenseController<LicenseType, FeatureKey> {
   //<LicenseType, CustomerFeatureKey> {

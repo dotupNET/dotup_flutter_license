@@ -1,8 +1,6 @@
 import 'package:dotup_flutter_license/dotup_flutter_license.dart';
 import 'package:flutter/material.dart';
 
-import 'LicenseDescriptor.dart';
-
 abstract class LicenseController<TLicense, TFeature> {
   static late final LicenseController instance;
 

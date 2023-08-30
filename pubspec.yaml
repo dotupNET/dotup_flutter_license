@@ -1,6 +1,6 @@
 name: dotup_flutter_license
 description: Small package to decorate Widgets with an License Banner.
-version: 0.2.0
+version: 1.0.0
 homepage: https://dotup.de
 
 environment:
@@ -8,12 +8,15 @@ environment:
   flutter: ">=1.17.0"
 
 dependencies:
+  collection: ^1.17.2
   flutter:
     sdk: flutter
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+  flutter_lints: ^2.0.3
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

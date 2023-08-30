@@ -1,7 +1,8 @@
-import 'package:flutter/material.dart';
 import 'dart:math';
 
-const double _CORNER_RADIUS = 4;
+import 'package:flutter/material.dart';
+
+// const double _CORNER_RADIUS = 4;
 
 class TriangleDecoration extends Decoration {
   final Size size;

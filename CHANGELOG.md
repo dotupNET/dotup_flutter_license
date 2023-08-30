@@ -17,3 +17,7 @@
 ## 0.2.0
 
 * License controller without features
+
+## 1.0.0
+
+* Package update
